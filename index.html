@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <title>
+    Wallpaper
+  </title>
+
+  <style>
+    @font-face {
+      font-family: Intro;
+      src: url(Fonts/Intro.otf);
+    }
+
+    @font-face {
+      font-family: Jackport;
+      src: url(Fonts/Jackport.ttf);
+    }
+
+    @font-face {
+      font-family: LCD;
+      src: url(Fonts/LCD.ttf);
+    }
+
+    @font-face {
+      font-family: Milkshake;
+      src: url(Fonts/Milkshake.otf);
+    }
+
+    @font-face {
+      font-family: NexaBold;
+      src: url(Fonts/NexaBold.otf);
+    }
+
+    @font-face {
+      font-family: NexaLight;
+      src: url(Fonts/NexaLight.otf);
+    }
+
+    @font-face {
+      font-family: Overseer;
+      src: url(Fonts/Overseer.otf);
+    }
+
+    @font-face {
+      font-family: Pricedown;
+      src: url(Fonts/Pricedown.ttf);
+    }
+
+    @font-face {
+      font-family: Typograph;
+      src: url(Fonts/Typograph.ttf);
+    }
+
+    html,
+    body {
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    body {
+      background-color: #000;
+      background-size: 100% 100%;
+    }
+
+    #Background {
+      width: 100%;
+      height: 100%;
+      transform: scale(1);
+      position: fixed;
+      top: 0;
+      left: 0;
+      transition: all 0.1s;
+      filter: blur(), hue-rotate();
+    }
+
+    #Spectrum {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: rotate(0deg) scale(1);
+      transform-origin: top;
+    }
+
+    #debug {
+      transition: all 0.5s;
+      position: absolute;
+      top: 2%;
+      left: 2%;
+      color: black;
+      text-shadow: 0px 0px 2px lime;
+      font-size: 3em;
+    }
+
+    #flash {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: white;
+      opacity: 0;
+      transition: all 0.05s;
+    }
+
+    #Clock {
+      position: absolute;
+      top: 0;
+      left: 60%;
+      text-align: center;
+      transition: opacity 1s;
+    }
+
+    #WeekdayPart {
+      font-family: Helvetica;
+      position: absolute;
+    }
+
+    #TimePart {
+      font-family: Helvetica;
+      position: absolute;
+    }
+
+    #DatePart {
+      font-family: Helvetica;
+      position: absolute;
+    }
+
+    #AMPM {
+      font-size: 0.4em;
+    }
+  </style>
+
+  <script>
+    // Wallpaper Properties (their given values are just initializers, all values will be loaded from the JSON file)
+    var WALLPAPER_VERSION = "3"
+    var SpectrumColor = "";
+    var BarWidth = 5;
+    var BGSize = "contain";
+    var BGPosX = 50;
+    var SpectrumBlurColor = "133, 71, 33";
+    var SpectrumBlurSize = 15;
+    var Intensity = 20;
+    var InitialHeight = 3;
+    var Spacing = 8;
+    var Amount = 128;
+    var SpectrumY = 4;
+    var BgScale = true;
+    var ScaleSensitivity = 30;
+    var ScaleDivider = 100;
+    var ScaleTransition = 25;
+    var ScaleMin = 1;
+    var Debug = false;
+    var ColorSw = true;
+    var TempSC;
+    var MultiColor = false;
+    var BlurReact = true;
+    var BlurReactTolerence = 5;
+    var BlurColorReact = true;
+    var TempBC;
+    var BlurReactMin = 0;
+    var BlurEffect = true;
+    var FlashEffect = false;
+    var FlashColor = "";
+    var FlashTransition = 20;
+    var FlashTrigger = 15;
+    var BlurTransition = 10;
+    var BlurTrigger = 10;
+    var BlurThreshold = 2;
+    var ColorSwOff = '1 1 1';
+    var ColorSwCeil = 50;
+    var BlurSwOff = "";
+    var BlurSwCeil = 40;
+    var HueEffect = false;
+    var HueSensitivity = 2;
+    var HueOffset = 0;
+    var HueTrigger = 0;
+    var SpectrumRotation = 0;
+    var SpectrumScale = 100;
+    var SpectrumOpacity = 100;
+    var SpectrumScaleReact = false;
+    var SpectrumScaleTrigger = 20;
+    var SpectrumScaleSensitivity = 1;
+    var SpectrumScaleTransition = 0;
+    var SpectrumScaleDivider = 100;
+    var SpectrumBaseScale = 100;
+    var SpectrumScaleAnchor = "top";
+    var OffsetX = 0;
+    const FullWeekdays = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ];
+    const ShortWeekdays = [
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat"
+    ];
+    const FullMonths = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ];
+    const ShortMonths = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ];
+    var ShowClock = true;
+    var MonthFormat = 1;
+    var WeekdayFormat = 1;
+    var TimeFormat = 1;
+    var YearFormat = 1;
+    var DateSeperator = ' ';
+    var TimeSeperator = ':';
+    var ShowWeekday = true;
+    var ShowHours = true;
+    var ShowMinutes = true;
+    var ShowSeconds = true;
+    var ShowMonth = true;
+    var ShowDay = true;
+    var ShowYear = true;
+    var ShowAMPM = true;
+    var ClockSize = 100;
+    var ClockX = 0;
+    var ClockY = 0;
+    var WeekdaySize = 10;
+    var TimeSize = 10;
+    var DateSize = 10;
+    var WeekdayX = 0;
+    var WeekdayY = 0;
+    var TimeX = 0;
+    var TimeY = 0;
+    var DateX = 0;
+    var DateY = 0;
+    var ClockRotation = 0;
+    var WeekdayColor = "0 0 0";
+    var WeekdayShadowSize = 0;
+    var WeekdayShadowColor = "0 0 0";
+    var WeekdayShadowX = 0;
+    var WeekdayShadowY = 0;
+    var TimeColor = "0 0 0";
+    var TimeShadowSize = 0;
+    var TimeShadowColor = "0 0 0";
+    var TimeShadowX = 0;
+    var TimeShadowY = 0;
+    var DateColor = "0 0 0";
+    var DateShadowSize = 0;
+    var DateShadowColor = "0 0 0";
+    var DateShadowX = 0;
+    var DateShadowY = 0;
+    var switchDayMonth = false;
+    // /Wallpaper Properties
+    window.addEventListener("load", _ => {
+      // JSON Properties
+      window.wallpaperPropertyListener = {
+        applyUserProperties: function(properties) {
+
+          // Switch Day Month
+          // Requested by Superfloh
+          if(properties.switchDayMonth) {
+            switchDayMonth = properties.switchDayMonth.value;
+            if(switchDayMonth) {
+              document.getElementById('DatePart').innerHTML = '<span id="Day"></span><span id="seperatorMD"></span><span id="Month"></span><span id="seperatorDY"></span><span id="Year"></span>';
+            } else {
+              document.getElementById('DatePart').innerHTML = '<span id="Month"></span><span id="seperatorMD"></span><span id="Day"></span><span id="seperatorDY"></span><span id="Year"></span>';
+            }
+          }
+          // /Switch Day Month
+
+          // Date Shadow X
+          if (properties.DateShadowX) {
+            DateShadowX = properties.DateShadowX.value / 10;
+          }
+          // /Date Shadow X
+
+          // Date Shadow Y
+          if (properties.DateShadowY) {
+            DateShadowY = properties.DateShadowY.value / 10;
+          }
+          // /Date Shadow Y
+
+          // Date Shadow Color
+          if (properties.DateShadowColor) {
+            DateShadowColor = properties.DateShadowColor.value.split(' ').map(function(DateShadowColor) {
+              return Math.ceil(DateShadowColor * 255);
+            });
+          }
+          // /Date Shadow Color
+
+          // Date Shadow Size
+          if (properties.DateShadowSize) {
+            DateShadowSize = properties.DateShadowSize.value / 100;
+          }
+          // /Date Shadow Size
+
+          // Date Color
+          if (properties.DateColor) {
+            DateColor = properties.DateColor.value.split(' ').map(function(DateColor) {
+              return Math.ceil(DateColor * 255);
+            });
+            document.getElementById('DatePart').style.color = 'rgb(' + DateColor + ')';
+          }
+          // /Date Color
+
+          // Time Shadow X
+          if (properties.TimeShadowX) {
+            TimeShadowX = properties.TimeShadowX.value / 10;
+          }
+          // /Time Shadow X
+
+          // Time Shadow Y
+          if (properties.TimeShadowY) {
+            TimeShadowY = properties.TimeShadowY.value / 10;
+          }
+          // /Time Shadow Y
+
+          // Time Shadow Color
+          if (properties.TimeShadowColor) {
+            TimeShadowColor = properties.TimeShadowColor.value.split(' ').map(function(TimeShadowColor) {
+              return Math.ceil(TimeShadowColor * 255);
+            });
+          }
+          // /Time Shadow Color
+
+          // Time Shadow Size
+          if (properties.TimeShadowSize) {
+            TimeShadowSize = properties.TimeShadowSize.value / 100;
+          }
+          // /Time Shadow Size
+
+          // Time Color
+          if (properties.TimeColor) {
+            TimeColor = properties.TimeColor.value.split(' ').map(function(TimeColor) {
+              return Math.ceil(TimeColor * 255);
+            });
+            document.getElementById('TimePart').style.color = 'rgb(' + TimeColor + ')';
+          }
+          // /Time Color
+
+          // Weekday Shadow X
+          if (properties.WeekdayShadowX) {
+            WeekdayShadowX = properties.WeekdayShadowX.value / 10;
+          }
+          // /Weekday Shadow X
+
+          // Weekday Shadow Y
+          if (properties.WeekdayShadowY) {
+            WeekdayShadowY = properties.WeekdayShadowY.value / 10;
+          }
+          // /Weekday Shadow Y
+
+          // Weekday Shadow Color
+          if (properties.WeekdayShadowColor) {
+            WeekdayShadowColor = properties.WeekdayShadowColor.value.split(' ').map(function(WeekdayShadowColor) {
+              return Math.ceil(WeekdayShadowColor * 255);
+            });
+          }
+          // /Weekday Shadow Color
+
+          // Weekday Shadow Size
+          if (properties.WeekdayShadowSize) {
+            WeekdayShadowSize = properties.WeekdayShadowSize.value / 100;
+          }
+          // /Weekday Shadow Size
+
+          // Weekday Color
+          if (properties.WeekdayColor) {
+            WeekdayColor = properties.WeekdayColor.value.split(' ').map(function(WeekdayColor) {
+              return Math.ceil(WeekdayColor * 255);
+            });
+            document.getElementById('WeekdayPart').style.color = 'rgb(' + WeekdayColor + ')';
+          }
+          // /Weekday Color
+
+          // Clock Rotation
+          if (properties.ClockRotation) {
+            ClockRotation = properties.ClockRotation.value;
+          }
+          // /Clock Rotation
+
+          // Date X
+          if (properties.DateX) {
+            DateX = properties.DateX.value / 100;
+            document.getElementById('DatePart').style.left = DateX + 'em';
+          }
+          // /Date X
+
+          // Date Y
+          if (properties.DateY) {
+            DateY = properties.DateY.value / 100;
+            document.getElementById('DatePart').style.top = DateY + 'em';
+          }
+          // /Date Y
+
+          // Time X
+          if (properties.TimeX) {
+            TimeX = properties.TimeX.value / 100;
+            document.getElementById('TimePart').style.left = TimeX + 'em';
+          }
+          // /Time X
+
+          // Time Y
+          if (properties.TimeY) {
+            TimeY = properties.TimeY.value / 100;
+            document.getElementById('TimePart').style.top = TimeY + 'em';
+          }
+          // /Time Y
+
+          // Weekday X
+          if (properties.WeekdayX) {
+            WeekdayX = properties.WeekdayX.value / 100;
+            document.getElementById('WeekdayPart').style.left = WeekdayX + 'em';
+          }
+          // /Weekday X
+
+          // Weekday Y
+          if (properties.WeekdayY) {
+            WeekdayY = properties.WeekdayY.value / 100;
+            document.getElementById('WeekdayPart').style.top = WeekdayY + 'em';
+          }
+          // /Weekday Y
+
+          // Date Size
+          if (properties.DateSize) {
+            DateSize = properties.DateSize.value / 100;
+            document.getElementById('DatePart').style.transform = 'scale(' + DateSize + ')';
+          }
+          // /Date Size
+
+          // Time Size
+          if (properties.TimeSize) {
+            TimeSize = properties.TimeSize.value / 100;
+            document.getElementById('TimePart').style.transform = 'scale(' + TimeSize + ')';
+          }
+          // /Time Size
+
+          // Weekday Size
+          if (properties.WeekdaySize) {
+            WeekdaySize = properties.WeekdaySize.value / 100;
+            document.getElementById('WeekdayPart').style.transform = 'scale(' + WeekdaySize + ')';
+          }
+          // /Weekday Size
+
+          // Clock Y
+          if (properties.ClockY) {
+            ClockY = properties.ClockY.value;
+            document.getElementById('Clock').style.top = ClockY + '%';
+          }
+          // /Clock Y
+
+          // Clock X
+          if (properties.ClockX) {
+            ClockX = properties.ClockX.value;
+            document.getElementById('Clock').style.left = ClockX + '%';
+          }
+          // /Clock X
+
+          // Clock Size
+          if (properties.ClockSize) {
+            ClockSize = properties.ClockSize.value / 100;
+          }
+          // /Clock Size
+
+          // Show AM/PM
+          if (properties.ShowAMPM) {
+            ShowAMPM = properties.ShowAMPM.value;
+          }
+          // /Show AM/PM
+
+          // ShowWeekday
+          if (properties.ShowWeekday) {
+            ShowWeekday = properties.ShowWeekday.value;
+          }
+          // /ShowWeekday
+
+          // ShowHours
+          if (properties.ShowHours) {
+            ShowHours = properties.ShowHours.value;
+          }
+          // /ShowHours
+
+          // ShowMinutes
+          if (properties.ShowMinutes) {
+            ShowMinutes = properties.ShowMinutes.value;
+          }
+          // /ShowMinutes
+
+          // ShowSeconds
+          if (properties.ShowSeconds) {
+            ShowSeconds = properties.ShowSeconds.value;
+          }
+          // /ShowSeconds
+
+          // ShowMonth
+          if (properties.ShowMonth) {
+            ShowMonth = properties.ShowMonth.value;
+          }
+          // /ShowMonth
+
+          // ShowDay
+          if (properties.ShowDay) {
+            ShowDay = properties.ShowDay.value;
+          }
+          // /ShowDay
+
+          // ShowYear
+          if (properties.ShowYear) {
+            ShowYear = properties.ShowYear.value;
+          }
+          // /ShowYear
+
+          // YearFormat
+          if (properties.YearFormat) {
+            YearFormat = properties.YearFormat.value;
+          }
+          // /YearFormat
+
+          // Date Font
+          if (properties.DateFont) {
+            var Choice = properties.DateFont.value;
+            var Font = document.getElementById('DatePart');
+
+            switch (Choice) {
+              case 1:
+                Font.style.fontFamily = "Impact";
+                break;
+
+              case 2:
+                Font.style.fontFamily = "Intro";
+                break;
+
+              case 3:
+                Font.style.fontFamily = "Jackport";
+                break;
+
+              case 4:
+                Font.style.fontFamily = "LCD";
+                break;
+
+              case 5:
+                Font.style.fontFamily = "Milkshake";
+                break;
+
+              case 6:
+                Font.style.fontFamily = "NexaBold";
+                break;
+
+              case 7:
+                Font.style.fontFamily = "NexaLight";
+                break;
+
+              case 8:
+                Font.style.fontFamily = "Overseer";
+                break;
+
+              case 9:
+                Font.style.fontFamily = "Pricedown";
+                break;
+
+              case 10:
+                Font.style.fontFamily = "Typograph";
+                break;
+            }
+          }
+          // /Date Font
+
+          // Time Font
+          if (properties.TimeFont) {
+            var Choice = properties.TimeFont.value;
+            var Font = document.getElementById('TimePart');
+
+            switch (Choice) {
+              case 1:
+                Font.style.fontFamily = "Impact";
+                break;
+
+              case 2:
+                Font.style.fontFamily = "Intro";
+                break;
+
+              case 3:
+                Font.style.fontFamily = "Jackport";
+                break;
+
+              case 4:
+                Font.style.fontFamily = "LCD";
+                break;
+
+              case 5:
+                Font.style.fontFamily = "Milkshake";
+                break;
+
+              case 6:
+                Font.style.fontFamily = "NexaBold";
+                break;
+
+              case 7:
+                Font.style.fontFamily = "NexaLight";
+                break;
+
+              case 8:
+                Font.style.fontFamily = "Overseer";
+                break;
+
+              case 9:
+                Font.style.fontFamily = "Pricedown";
+                break;
+
+              case 10:
+                Font.style.fontFamily = "Typograph";
+                break;
+            }
+          }
+          // /Time Font
+
+          // Weekday Font
+          if (properties.WeekdayFont) {
+            var Choice = properties.WeekdayFont.value;
+            var Font = document.getElementById('WeekdayPart');
+
+            switch (Choice) {
+              case 1:
+                Font.style.fontFamily = "Impact";
+                break;
+
+              case 2:
+                Font.style.fontFamily = "Intro";
+                break;
+
+              case 3:
+                Font.style.fontFamily = "Jackport";
+                break;
+
+              case 4:
+                Font.style.fontFamily = "LCD";
+                break;
+
+              case 5:
+                Font.style.fontFamily = "Milkshake";
+                break;
+
+              case 6:
+                Font.style.fontFamily = "NexaBold";
+                break;
+
+              case 7:
+                Font.style.fontFamily = "NexaLight";
+                break;
+
+              case 8:
+                Font.style.fontFamily = "Overseer";
+                break;
+
+              case 9:
+                Font.style.fontFamily = "Pricedown";
+                break;
+
+              case 10:
+                Font.style.fontFamily = "Typograph";
+                break;
+            }
+          }
+          // /Weekday Font
+
+          // ShowClock
+          if (properties.ShowClock) {
+            ShowClock = properties.ShowClock.value;
+          }
+          // /ShowClock
+
+          // MonthFormat
+          if (properties.MonthFormat) {
+            MonthFormat = properties.MonthFormat.value;
+          }
+          // /MonthFormat
+
+          // WeekdayFormat
+          if (properties.WeekdayFormat) {
+            WeekdayFormat = properties.WeekdayFormat.value;
+          }
+          // /WeekdayFormat
+
+          // TimeFormat
+          if (properties.TimeFormat) {
+            TimeFormat = properties.TimeFormat.value;
+          }
+          // /TimeFormat
+
+          // TimeSeperator
+          if (properties.TimeSeperator) {
+            var Choice = properties.TimeSeperator.value;
+            switch (Choice) {
+              case 1:
+                TimeSeperator = ' ';
+                break;
+
+              case 2:
+                TimeSeperator = '.';
+                break;
+
+              case 3:
+                TimeSeperator = '-';
+                break;
+
+              case 4:
+                TimeSeperator = '|';
+                break;
+
+              case 5:
+                TimeSeperator = '/';
+                break;
+
+              case 6:
+                TimeSeperator = '·';
+                break;
+
+              case 7:
+                TimeSeperator = ':';
+                break;
+            }
+          }
+          // /TimeSeperator
+
+          // DateSeperator
+          if (properties.DateSeperator) {
+            var Choice = properties.DateSeperator.value;
+            switch (Choice) {
+              case 1:
+                DateSeperator = ' ';
+                break;
+
+              case 2:
+                DateSeperator = '.';
+                break;
+
+              case 3:
+                DateSeperator = '-';
+                break;
+
+              case 4:
+                DateSeperator = '|';
+                break;
+
+              case 5:
+                DateSeperator = '/';
+                break;
+
+              case 6:
+                DateSeperator = '·';
+                break;
+            }
+          }
+          // /DateSeperator
+
+          // Offset X
+          if (properties.OffsetX) {
+            OffsetX = properties.OffsetX.value;
+            document.getElementById('Spectrum').style.left = OffsetX + '%';
+          }
+          // /Offset X
+
+          // Spectrum Scale Anchor
+          if (properties.SpectrumScaleAnchor) {
+            var Choice;
+            Choice = properties.SpectrumScaleAnchor.value;
+            switch (Choice) {
+              case 1:
+                SpectrumScaleAnchor = "top";
+                break;
+
+              case 2:
+                SpectrumScaleAnchor = "right top";
+                break;
+
+              case 3:
+                SpectrumScaleAnchor = "right";
+                break;
+
+              case 4:
+                SpectrumScaleAnchor = "right bottom";
+                break;
+
+              case 5:
+                SpectrumScaleAnchor = "bottom";
+                break;
+
+              case 6:
+                SpectrumScaleAnchor = "left bottom";
+                break;
+
+              case 7:
+                SpectrumScaleAnchor = "left";
+                break;
+
+              case 8:
+                SpectrumScaleAnchor = "left top";
+                break;
+
+              case 9:
+                SpectrumScaleAnchor = "center";
+                break;
+
+              default:
+                SpectrumScaleAnchor = "center";
+            }
+            document.getElementById('Spectrum').style.transformOrigin = SpectrumScaleAnchor;
+          }
+          // /Spectrum Scale Anchor
+
+          // Spectrum Scale Divider
+          if (properties.SpectrumScaleDivider) {
+            SpectrumScaleDivider = properties.SpectrumScaleDivider.value;
+          }
+          // /Spectrum Scale Divider
+
+          // Spectrum Transition
+          if (properties.SpectrumScaleTransition) {
+            SpectrumScaleTransition = properties.SpectrumScaleTransition.value / 100;
+            document.getElementById('Spectrum').style.transition = 'transform ' + SpectrumScaleTransition + 's';
+          }
+          // /Spectrum Transition
+
+          // Spectrum Rotation
+          if (properties.SpectrumRotation) {
+            SpectrumRotation = properties.SpectrumRotation.value;
+          }
+          // /Spectrum Rotation
+
+          // Spectrum Scale
+          if (properties.SpectrumScale) {
+            SpectrumScale = properties.SpectrumScale.value / 100;
+            SpectrumBaseScale = SpectrumScale;
+          }
+          // /Spectrum Scale
+
+          // Spectrum Opacity
+          if (properties.SpectrumOpacity) {
+            SpectrumOpacity = properties.SpectrumOpacity.value / 100;
+            document.getElementById('Spectrum').style.opacity = SpectrumOpacity;
+          }
+          // /Spectrum Opacity
+
+          // Spectrum React
+          if (properties.SpectrumScaleReact) {
+            SpectrumScaleReact = properties.SpectrumScaleReact.value;
+          }
+          // /Spectrum React
+
+          // Spectrum Sensitivity
+          if (properties.SpectrumScaleSensitivity) {
+            SpectrumScaleSensitivity = properties.SpectrumScaleSensitivity.value;
+          }
+          // /Spectrum Sensitivity
+
+          // Spectrum Trigger
+          if (properties.SpectrumScaleTrigger) {
+            SpectrumScaleTrigger = properties.SpectrumScaleTrigger.value;
+          }
+          // /Spectrum Trigger
+
+          // Hue Trigger
+          if (properties.HueTrigger) {
+            HueTrigger = properties.HueTrigger.value;
+          }
+          // /Hue Trigger
+
+          // Hue Offset
+          if (properties.HueOffset) {
+            HueOffset = properties.HueOffset.value;
+          }
+          // /Hue Offset
+
+          // Hue Sensitivity
+          if (properties.HueSensitivity) {
+            HueSensitivity = properties.HueSensitivity.value;
+          }
+          // /Hue Sensitivity
+
+          // Hue Effect
+          if (properties.HueEffect) {
+            HueEffect = properties.HueEffect.value;
+          }
+          // /Hue Effect
+
+          // Blur Switch Ceiling
+          if (properties.BlurSwCeil) {
+            BlurSwCeil = properties.BlurSwCeil.value;
+          }
+          // /Blur Switch Ceiling
+
+          // Blur Switch Color Offset
+          if (properties.BlurSwOff) {
+            BlurSwOff = properties.BlurSwOff.value.split(' ');
+          }
+          // /Blur Switch Color Offset
+
+          // Color Switch Ceiling
+          if (properties.ColorSwCeil) {
+            ColorSwCeil = properties.ColorSwCeil.value;
+          }
+          // /Color Switch Ceiling
+
+          // Blur Threshold
+          if (properties.BlurThreshold) {
+            BlurThreshold = properties.BlurThreshold.value;
+          }
+          // /Blur Threshold
+
+          // Blur Trigger
+          if (properties.BlurTrigger) {
+            BlurTrigger = properties.BlurTrigger.value;
+          }
+          // /Blur Trigger
+
+          // Blur Transition
+          if (properties.BlurTransition) {
+            BlurTransition = properties.BlurTransition.value / 100;
+          }
+          // /Blur Transition
+
+          // Flash Trigger
+          if (properties.FlashTrigger) {
+            FlashTrigger = properties.FlashTrigger.value;
+          }
+          // /Flash Trigger
+
+          // Flash Transition
+          if (properties.FlashTransition) {
+            FlashTransition = properties.FlashTransition.value / 100;
+            document.getElementById('flash').style.transition = 'all ' + FlashTransition + 's';
+          }
+          // /Flash Transition
+
+          // Blur Effect
+          if (properties.BlurEffect) {
+            BlurEffect = properties.BlurEffect.value;
+          }
+          // /Blur Effect
+
+          // Flash Effect Color
+          if (properties.FlashEffectColor) {
+            FlashColor = properties.FlashEffectColor.value.split(' ').map(function(FlashColor) {
+              return Math.ceil(FlashColor * 255)
+            });
+            document.getElementById('flash').style.backgroundColor = 'rgb(' + FlashColor + ')';
+          }
+          // /Flash Effect Color
+
+          // Flash Effect
+          if (properties.FlashEffect) {
+            FlashEffect = properties.FlashEffect.value;
+          }
+          // /Flash Effect
+
+          // Blur React Minimum
+          if (properties.BlurReactMin) {
+            BlurReactMin = properties.BlurReactMin.value;
+          }
+          // /Blur React Minimum
+
+          // Blur Color React
+          if (properties.BlurColorReact) {
+            BlurColorReact = properties.BlurColorReact.value;
+          }
+          // /Blur Color React
+
+          // Color Switch Offset
+          if (properties.ColorSwOff) {
+            ColorSwOff = properties.ColorSwOff.value.split(' ');
+          }
+          // /Color Switch Offset
+
+          // Blur React Tolerance
+          if (properties.BlurReactTolerence) {
+            BlurReactTolerence = properties.BlurReactTolerence.value;
+          }
+          // /Blur React Tolerance
+
+          // Blur React
+          if (properties.BlurReact) {
+            BlurReact = properties.BlurReact.value;
+          }
+          // /Blur React
+
+          // MultiColor
+          if (properties.MultiColor) {
+            MultiColor = properties.MultiColor.value;
+          }
+          // /MultiColor
+
+          // Color Switch
+          if (properties.ColorSw) {
+            ColorSw = properties.ColorSw.value;
+          }
+          // /Color Switch
+
+          // Debug
+          if (properties.Debug) {
+            Debug = properties.Debug.value
+            if (Debug) {
+              document.getElementById("debug").style.opacity = 1;
+            } else {
+              document.getElementById("debug").style.opacity = 0;
+            }
+          }
+          // /Debug
+
+          // Scale min
+          if (properties.ScaleMin) {
+            ScaleMin = properties.ScaleMin.value;
+          }
+          // /Scale min
+
+          // Scale Transition
+          if (properties.ScaleTransition) {
+            ScaleTransition = properties.ScaleTransition.value;
+          }
+          // /Scale Transition
+
+          // Scale Divider
+          if (properties.ScaleDivider) {
+            ScaleDivider = properties.ScaleDivider.value;
+          }
+          // /Scale Divider
+
+          // Scale Sensitivity
+          if (properties.ScaleSensitivity) {
+            ScaleSensitivity = properties.ScaleSensitivity.value;
+          }
+          // /Scale Sensitivity
+
+          // Reactive BG scale
+          if (properties.BgScale) {
+            BgScale = properties.BgScale.value;
+          }
+          // /Reactive BG scale
+
+          // Amount
+          if (properties.Amount) {
+            Amount = properties.Amount.value;
+          }
+          // /Amount
+
+          // Spacing
+          if (properties.Spacing) {
+            Spacing = properties.Spacing.value;
+          }
+          // /Spacing
+
+          // Initial Height
+          if (properties.Idle) {
+            InitialHeight = properties.Idle.value;
+          }
+          // /Initial Height
+
+          // Background
+          if (properties.bg) {
+            if (properties.bg.value) {
+              document.getElementById('Background').style.backgroundImage = "url('file:///" + properties.bg.value + "')";
+            } else {
+              document.getElementById('Background').style.backgroundImage = "url('Backgrounds/default.jpg')";
+            }
+          }
+          // /Background
+
+          // Spectrum Color
+          if (properties.SpectrumColor) {
+            TempSC = properties.SpectrumColor.value;
+            SpectrumColor = properties.SpectrumColor.value.split(' ').map(function(SpectrumColor) {
+              return Math.ceil(SpectrumColor * 255)
+            });
+          }
+          // /Spectrum Color
+
+          // Bar width
+          if (properties.BarWidth) {
+            BarWidth = properties.BarWidth.value;
+          }
+          // /Bar width
+
+          // Background Size
+          if (properties.BgSize) {
+            var size = properties.BgSize.value;
+            if (size == 1) {
+              BGSize = "100% 100%";
+            } else if (size == 2) {
+              BGSize = "cover";
+            }
+            document.getElementById('Background').style.backgroundSize = BGSize;
+          }
+          // /Background Size
+
+          // Spectrum Blur Color
+          if (properties.SpectrumBlurColor) {
+            TempBC = properties.SpectrumBlurColor.value;
+            SpectrumBlurColor = properties.SpectrumBlurColor.value.split(' ').map(function(SpectrumBlurColor) {
+              return Math.ceil(SpectrumBlurColor * 255)
+            });
+          }
+          // /Spectrum Blur Color
+
+          // Spectrum Blur Size
+          if (properties.SpectrumBlurSize) {
+            SpectrumBlurSize = properties.SpectrumBlurSize.value;
+          }
+          // /Spectrum Blur Size
+
+          // Intensity
+          if (properties.Intensity) {
+            Intensity = properties.Intensity.value;
+          }
+          // /Intensity
+
+          // Y Offset
+          if (properties.OffsetY) {
+            SpectrumY = properties.OffsetY.value;
+            document.getElementById('Spectrum').style.top = SpectrumY + '%';
+          }
+          // /Y Offset
+
+
+        }
+      }
+      // /JSON Properties
+
+      let audio = []
+
+      const canvas = document.createElement('canvas')
+      const context = canvas.getContext('2d')
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+      document.getElementById('Spectrum').appendChild(canvas)
+
+      const circle = document.createElement('canvas')
+      const ctx = circle.getContext('2d')
+      circle.width = window.innerWidth
+      circle.height = window.innerHeight
+      document.getElementById('Spectrum').appendChild(circle)
+
+      const listener = arr => {
+        audio = arr
+      }
+
+      const draw = _ => {
+
+        document.getElementById('Background').style.transition = 'transform ' + ScaleTransition / 100 + 's, filter ' + BlurTransition / 100 + 's';
+
+        var Clock = new Date();
+        var CurWeekday;
+        var CurHour;
+        var IsPM;
+        var CurMinute;
+        var CurSecond;
+        var CurMonth;
+        var CurDay;
+        var CurYear;
+        // Make Time.
+        // Weekday
+        switch (WeekdayFormat) {
+          case 1: // Full
+            CurWeekday = FullWeekdays[Clock.getDay()];
+            break;
+
+          case 2: // Short
+            CurWeekday = ShortWeekdays[Clock.getDay()];
+            break;
+
+          case 3: // Number
+            CurWeekday = Clock.getDay() + 1; // +1 because arrays start at 0 :p
+            break;
+        }
+
+        // Hours
+        switch (TimeFormat) {
+          case 1: // 12H
+            if (Clock.getHours() > 12) {
+              CurHour = Clock.getHours() - 12;
+              IsPM = true;
+            } else {
+              CurHour = Clock.getHours();
+              IsPM = false;
+            }
+            break;
+
+          case 2: // 24H
+            CurHour = Clock.getHours();
+            break;
+        }
+        if (CurHour < 10) {
+          CurHour = '0' + CurHour;
+        }
+
+        // Minutes
+        if (Clock.getMinutes() < 10) {
+          CurMinute = '0' + Clock.getMinutes();
+        } else {
+          CurMinute = Clock.getMinutes();
+        }
+
+        // Seconds
+        if (Clock.getSeconds() < 10) {
+          CurSecond = '0' + Clock.getSeconds();
+        } else {
+          CurSecond = Clock.getSeconds();
+        }
+
+        // Month
+        switch (MonthFormat) {
+          case 1: // Full
+            CurMonth = FullMonths[Clock.getMonth()];
+            break;
+
+          case 2: // Short
+            CurMonth = ShortMonths[Clock.getMonth()];
+            break;
+
+          case 3: // Number
+            CurMonth = Clock.getMonth() + 1;
+            break;
+        }
+        if (CurMonth < 10)
+          CurMonth = '0' + CurMonth;
+
+        // Day
+        CurDay = Clock.getDate();
+        if (CurDay < 10)
+          CurDay = '0' + CurDay;
+
+        // Year
+        switch (YearFormat) {
+          case 1: // Full
+            CurYear = Clock.getFullYear();
+            break;
+
+          case 2: // Short
+            CurYear = Clock.getFullYear() % 100;
+            if (CurYear < 10)
+              CurYear = '0' + CurYear; // Cant wait till 2100 to see if this 'if' statement works!
+            break;
+        }
+        // /Make Time.
+
+        var SoundIntensity = 0;
+        for (const [i, part] of audio.entries()) {
+          SoundIntensity += part;
+        }
+
+        if (FlashEffect) {
+          if (SoundIntensity >= FlashTrigger) {
+            document.getElementById('flash').style.opacity = SoundIntensity / 100;
+          } else {
+            document.getElementById('flash').style.opacity = 0;
+          }
+        } else {
+          document.getElementById('flash').style.opacity = 0;
+        }
+
+        var BlurEffectAmount = 0;
+        var HueEffectAmount = 0;
+        if (BlurEffect) {
+          if (SoundIntensity >= BlurTrigger) {
+            BlurEffectAmount = SoundIntensity / BlurThreshold;
+          } else {
+            BlurEffectAmount = 0;
+          }
+        } else {
+          BlurEffectAmount = 0;
+        }
+
+        if (HueEffect) {
+          if (SoundIntensity >= HueTrigger)
+            HueEffectAmount = HueOffset + SoundIntensity * HueSensitivity;
+          else
+            HueEffectAmount = HueOffset;
+        } else {
+          HueEffectAmount = 0;
+        }
+
+        document.getElementById('Background').style.filter = 'blur(' + BlurEffectAmount + 'px) hue-rotate(' + HueEffectAmount + 'deg)';
+
+        context.clearRect(0, 0, window.innerWidth, window.innerHeight)
+        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
+
+
+        for (const [i, part] of audio.entries()) {
+
+
+
+          document.getElementById('debug').innerHTML = "Debug Log (React Update: " + WALLPAPER_VERSION + ')';
+
+          // Casting Shadows
+          if (WeekdayShadowSize != 0)
+            document.getElementById('WeekdayPart').style.textShadow = WeekdayShadowX + 'px ' + WeekdayShadowY + 'px ' + WeekdayShadowSize + 'px rgb(' + WeekdayShadowColor + ')';
+          else
+            document.getElementById('WeekdayPart').style.textShadow = '';
+          if (TimeShadowSize != 0)
+            document.getElementById('TimePart').style.textShadow = TimeShadowX + 'px ' + TimeShadowY + 'px ' + TimeShadowSize + 'px rgb(' + TimeShadowColor + ')';
+          else
+            document.getElementById('TimePart').style.textShadow = '';
+          if (DateShadowSize != 0)
+            document.getElementById('DatePart').style.textShadow = DateShadowX + 'px ' + DateShadowY + 'px ' + DateShadowSize + 'px rgb(' + DateShadowColor + ')';
+          else
+            document.getElementById('DatePart').style.textShadow = '';
+
+
+          if (ShowClock) {
+            document.getElementById('Clock').style.opacity = 1;
+
+            // Show Weekday
+            if (ShowWeekday) {
+              document.getElementById('Weekday').innerHTML = CurWeekday;
+            } else {
+              document.getElementById('Weekday').innerHTML = '';
+            }
+
+            // Show Hours
+            if (ShowHours) {
+              document.getElementById('Hour').innerHTML = CurHour;
+            } else {
+              document.getElementById('Hour').innerHTML = '';
+            }
+
+            // Show HM Seperator
+            if ((ShowHours && ShowMinutes) || (ShowHours && ShowSeconds)) {
+              document.getElementById('seperatorHM').innerHTML = TimeSeperator;
+            } else {
+              document.getElementById('seperatorHM').innerHTML = '';
+            }
+
+            // Show Minutes
+            if (ShowMinutes) {
+              document.getElementById('Minute').innerHTML = CurMinute;
+            } else {
+              document.getElementById('Minute').innerHTML = '';
+            }
+
+            // Show MS Seperator
+            if (ShowMinutes && ShowSeconds) {
+              document.getElementById('seperatorMS').innerHTML = TimeSeperator;
+            } else {
+              document.getElementById('seperatorMS').innerHTML = '';
+            }
+
+            // Show Seconds
+            if (ShowSeconds) {
+              document.getElementById('Second').innerHTML = CurSecond;
+            } else {
+              document.getElementById('Second').innerHTML = '';
+            }
+
+            // Show AMPM
+            if (ShowAMPM && TimeFormat == 1) {
+              if (IsPM) {
+                document.getElementById('AMPM').innerHTML = "PM";
+              } else {
+                document.getElementById('AMPM').innerHTML = "AM";
+              }
+            } else {
+              document.getElementById('AMPM').innerHTML = '';
+            }
+
+            // Show Month
+            if (ShowMonth) {
+              document.getElementById('Month').innerHTML = CurMonth;
+            } else {
+              document.getElementById('Month').innerHTML = '';
+            }
+
+            // Show HM Seperator
+            if ((ShowMonth && ShowDay) || (ShowMonth && ShowYear)) {
+              document.getElementById('seperatorMD').innerHTML = DateSeperator;
+            } else {
+              document.getElementById('seperatorMD').innerHTML = '';
+            }
+
+            // Show Day
+            if (ShowDay) {
+              document.getElementById('Day').innerHTML = CurDay;
+            } else {
+              document.getElementById('Day').innerHTML = '';
+            }
+
+            // Show MS Seperator
+            if (ShowDay && ShowYear) {
+              document.getElementById('seperatorDY').innerHTML = DateSeperator;
+            } else {
+              document.getElementById('seperatorDY').innerHTML = '';
+            }
+
+            // Show Year
+            if (ShowYear) {
+              document.getElementById('Year').innerHTML = CurYear;
+            } else {
+              document.getElementById('Year').innerHTML = '';
+            }
+
+          } else {
+            document.getElementById('Clock').style.opacity = 0;
+          }
+
+          if (ColorSw) {
+            document.getElementById('debug').innerHTML += " <br>ColorSwOff: " + ColorSwOff;
+            var TempArr;
+            TempArr = TempSC.split(" ");
+            document.getElementById('debug').innerHTML += " <br>TempArr: " + TempArr;
+            if (MultiColor) {
+              TempArr[0] -= (SoundIntensity / 100 / Math.random()) + 0.01;
+              TempArr[1] -= (SoundIntensity / 100 / Math.random()) + 0.01;
+              TempArr[2] -= (SoundIntensity / 100 / Math.random()) + 0.01;
+            } else {
+              for (var j = 0; j <= 2; ++j) {
+                var Distance;
+                document.getElementById('debug').innerHTML += '<br>ColorSw TempArr ' + j + ': ' + TempArr[j];
+                document.getElementById('debug').innerHTML += '| ColorSw ' + j + ': ' + ColorSwOff[j];
+                if (TempArr[j] != ColorSwOff[j]) {
+                  Distance = TempArr[j] - ColorSwOff[j];
+                  document.getElementById('debug').innerHTML += '| Dist: ' + j + ': ' + Distance;
+                  TempArr[j] -= (SoundIntensity / ColorSwCeil) * Distance;
+                }
+              }
+            }
+            SpectrumColor = TempArr.map(function(TempArr) {
+              return Math.ceil(TempArr * 255)
+            });
+          }
+
+          if (BlurReact) {
+            SpectrumBlurSize = SoundIntensity / BlurReactTolerence + BlurReactMin;
+            document.getElementById("debug").innerHTML += '<br> Spctrm Blur sz: ' + SpectrumBlurSize;
+          }
+
+          if (BlurColorReact) {
+            var TempArr;
+            TempArr = TempBC.split(" ");
+            for (var j = 0; j <= 2; ++j) {
+              var Distance;
+              document.getElementById('debug').innerHTML += '<br>BlurSw TempArr ' + j + ': ' + TempArr[j];
+              document.getElementById('debug').innerHTML += '| BlurSw ' + j + ': ' + BlurSwOff[j];
+              if (TempArr[j] != BlurSwOff[j]) {
+                Distance = TempArr[j] - BlurSwOff[j];
+                document.getElementById('debug').innerHTML += '| Dist: ' + j + ': ' + Distance;
+                TempArr[j] -= (SoundIntensity / BlurSwCeil) * Distance;
+              }
+            }
+            SpectrumBlurColor = TempArr.map(function(TempArr) {
+              return Math.ceil(Math.abs(TempArr * 255))
+            });
+
+          }
+
+          document.getElementById('debug').innerHTML += '<br> Spctrm Blur clr: ' + SpectrumBlurColor;
+          document.getElementById('debug').innerHTML += '<br> Spctrm clr: ' + SpectrumColor;
+          context.fillStyle = 'rgb(' + SpectrumColor + ')'
+          context.shadowBlur = SpectrumBlurSize;
+          context.shadowColor = 'rgb(' + SpectrumBlurColor + ')';
+          const x = (i * (window.innerWidth / Amount)) + ((i + 1) * Spacing) - (Spacing / 2)
+          const y = window.innerHeight / 100
+          context.fillRect(x, y, BarWidth, (Intensity * 100) * part + InitialHeight)
+
+          if (BgScale) {
+            document.getElementById('debug').innerHTML += '<br>Intensity: ' + SoundIntensity;
+            if (SoundIntensity >= ScaleSensitivity) {
+              var ScaleFactor = 1 + SoundIntensity / ScaleDivider;
+
+              if (ScaleFactor > (ScaleMin / 100))
+                document.getElementById('Background').style.transform = 'scale(' + ScaleFactor + ')';
+              else
+                document.getElementById('Background').style.transform = 'scale(1)';
+
+            } else {
+              document.getElementById('Background').style.transform = 'scale(1)';
+            }
+          }
+
+          if (SpectrumScaleReact) {
+            if (SoundIntensity >= SpectrumScaleTrigger) {
+              SpectrumScale = SpectrumBaseScale + (SpectrumScaleSensitivity * SoundIntensity) / SpectrumScaleDivider;
+            } else {
+              SpectrumScale = SpectrumBaseScale;
+            }
+          } else {
+            SpectrumScale = SpectrumBaseScale;
+          }
+
+          document.getElementById('Spectrum').style.transform = 'scale(' + SpectrumScale + ') rotate(' + SpectrumRotation + 'deg)';
+          document.getElementById('Clock').style.transform = 'scale(' + ClockSize + ') rotate(' + ClockRotation + 'deg)';
+        }
+
+        requestAnimationFrame(draw)
+      }
+
+      window.wallpaperRegisterAudioListener(listener)
+      draw()
+
+    })
+  </script>
+</head>
+
+<body>
+  <div id="Background"> </div>
+  <div id="Spectrum"> </div>
+  <div id="Clock">
+    <div id="WeekdayPart">
+      <span id="Weekday"></span>
+    </div>
+    <div id="TimePart">
+      <span id="Hour"></span><span id="seperatorHM"></span><span id="Minute"></span><span id="seperatorMS"></span><span id="Second"></span><span id="AMPM"></span>
+    </div>
+    <div id="DatePart">
+      <span id="Month"></span><span id="seperatorMD"></span><span id="Day"></span><span id="seperatorDY"></span><span id="Year"></span>
+    </div>
+  </div>
+  <div id="flash"> </div>
+  <div id="debug"></div>
+</body>
+
+</html>

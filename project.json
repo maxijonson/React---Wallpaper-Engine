@@ -1,0 +1,1213 @@
+{
+	"description" : "*React is the V2 version of the original wallpaper: Poly (http://steamcommunity.com/sharedfiles/filedetails/?id=1084251953) *\r\nReact is a fully customizable wallpaper with a little over 100 options that let you change different parts of the wallpaper to ma",
+	"file" : "index.html",
+	"general" :
+	{
+		"properties" :
+		{
+			"AdditionalSpectrumInfo" :
+			{
+				"order" : 49,
+				"text" : "<br><b>- New Spectrum Options -"
+			},
+			"Amount" :
+			{
+				"max" : 128,
+				"min" : 1,
+				"order" : 12,
+				"text" : "<br>Amount of Bars",
+				"type" : "slider",
+				"value" : 128
+			},
+			"BarWidth" :
+			{
+				"max" : 35,
+				"min" : 0,
+				"order" : 9,
+				"text" : "<br>Bar Width",
+				"type" : "slider",
+				"value" : 3
+			},
+			"BgOptionsInfo" :
+			{
+				"order" : 1,
+				"text" : "<br><b>- Background Options -</b>"
+			},
+			"BgScale" :
+			{
+				"order" : 17,
+				"text" : "<br>Reactive Bg Scale<br>",
+				"type" : "bool",
+				"value" : true
+			},
+			"BgScalingInfo" :
+			{
+				"order" : 16,
+				"text" : "<br> <b>- Background Scaling Options -</b>"
+			},
+			"BgSize" :
+			{
+				"options" :
+				[
+					{
+						"label" : "Fit",
+						"value" : 1
+					},
+					{
+						"label" : "Cover",
+						"value" : 2
+					}
+				],
+				"order" : 3,
+				"text" : "<br>Background Size",
+				"type" : "combo",
+				"value" : 1
+			},
+			"BlurColorReact" :
+			{
+				"condition" : "BlurReact.value",
+				"order" : 32,
+				"text" : "Blur Color React",
+				"type" : "bool",
+				"value" : true
+			},
+			"BlurEffect" :
+			{
+				"order" : 37,
+				"text" : "Blur",
+				"type" : "bool",
+				"value" : true
+			},
+			"BlurReact" :
+			{
+				"order" : 29,
+				"text" : "Spectrum Blur React",
+				"type" : "bool",
+				"value" : true
+			},
+			"BlurReactMin" :
+			{
+				"condition" : "BlurReact.value",
+				"max" : 25,
+				"min" : 0,
+				"order" : 31,
+				"text" : "Blur React Minimum Amount",
+				"type" : "slider",
+				"value" : 0
+			},
+			"BlurReactTolerence" :
+			{
+				"condition" : "BlurReact.value",
+				"max" : 25,
+				"min" : 1,
+				"order" : 30,
+				"text" : "Blur React Tolerance",
+				"type" : "slider",
+				"value" : 7
+			},
+			"BlurSwCeil" :
+			{
+				"condition" : "BlurReact.value && BlurColorReact.value",
+				"max" : 125,
+				"min" : 1,
+				"order" : 34,
+				"text" : "Sound Ceiling",
+				"type" : "slider",
+				"value" : 40
+			},
+			"BlurSwInfo" :
+			{
+				"order" : 28,
+				"text" : "<br><b> - Reactive Spectrum Blur Options - </b>"
+			},
+			"BlurSwOff" :
+			{
+				"condition" : "BlurReact.value && BlurColorReact.value",
+				"order" : 33,
+				"text" : "Blur Color Switch Target (some cases may not be perfect or even work)",
+				"type" : "color",
+				"value" : "0 0.65 1"
+			},
+			"BlurThreshold" :
+			{
+				"condition" : "BlurEffect.value",
+				"max" : 25,
+				"min" : 1,
+				"order" : 40,
+				"text" : "Blur Threshold",
+				"type" : "slider",
+				"value" : 10
+			},
+			"BlurTransition" :
+			{
+				"condition" : "BlurEffect.value",
+				"max" : 100,
+				"min" : 0,
+				"order" : 38,
+				"text" : "Blur Transition",
+				"type" : "slider",
+				"value" : 100
+			},
+			"BlurTrigger" :
+			{
+				"condition" : "BlurEffect.value",
+				"max" : 100,
+				"min" : 0,
+				"order" : 39,
+				"text" : "Blur Trigger",
+				"type" : "slider",
+				"value" : 25
+			},
+			"ClockInfo" :
+			{
+				"order" : 59,
+				"text" : "<br><b>- Clock Options -"
+			},
+			"ClockRotation" :
+			{
+				"condition" : "ShowClock.value",
+				"max" : 360,
+				"min" : -360,
+				"order" : 62,
+				"text" : "Clock Rotation",
+				"type" : "slider",
+				"value" : -3
+			},
+			"ClockSize" :
+			{
+				"condition" : "ShowClock.value",
+				"max" : 1000,
+				"min" : 0,
+				"order" : 61,
+				"text" : "Clock Size",
+				"type" : "slider",
+				"value" : 400
+			},
+			"ClockX" :
+			{
+				"condition" : "ShowClock.value",
+				"max" : 1000,
+				"min" : 0,
+				"order" : 63,
+				"text" : "Clock X",
+				"type" : "slider",
+				"value" : 32
+			},
+			"ClockY" :
+			{
+				"condition" : "ShowClock.value",
+				"max" : 1000,
+				"min" : 0,
+				"order" : 64,
+				"text" : "Clock Y",
+				"type" : "slider",
+				"value" : 0
+			},
+			"ColorSw" :
+			{
+				"order" : 23,
+				"text" : "Reactive Color Switch",
+				"type" : "bool",
+				"value" : true
+			},
+			"ColorSwCeil" :
+			{
+				"condition" : "!MultiColor.value && ColorSw.value",
+				"max" : 125,
+				"min" : 1,
+				"order" : 26,
+				"text" : "Sound Ceiling",
+				"type" : "slider",
+				"value" : 40
+			},
+			"ColorSwInfo" :
+			{
+				"order" : 22,
+				"text" : "<br><b> - Reactive Color Options - </b>"
+			},
+			"ColorSwOff" :
+			{
+				"condition" : "!MultiColor.value && ColorSw.value",
+				"order" : 25,
+				"text" : "Color Switch Target (some cases may not be perfect or even work)",
+				"type" : "color",
+				"value" : "1 1 1"
+			},
+			"DateColor" :
+			{
+				"condition" : "ShowClock.value && (ShowMonth.value || ShowDay.value || ShowYear.value)",
+				"order" : 99,
+				"text" : "Date Color",
+				"type" : "color",
+				"value" : "0 0 0"
+			},
+			"DateFont" :
+			{
+				"condition" : "ShowClock.value && (ShowMonth.value || ShowDay.value || ShowYear.value)",
+				"options" :
+				[
+					{
+						"label" : "Impact",
+						"value" : 1
+					},
+					{
+						"label" : "Intro",
+						"value" : 2
+					},
+					{
+						"label" : "Jackport",
+						"value" : 3
+					},
+					{
+						"label" : "LCD",
+						"value" : 4
+					},
+					{
+						"label" : "Milkshake",
+						"value" : 5
+					},
+					{
+						"label" : "NexaBold",
+						"value" : 6
+					},
+					{
+						"label" : "NexaLight",
+						"value" : 7
+					},
+					{
+						"label" : "Overseer",
+						"value" : 8
+					},
+					{
+						"label" : "Pricedown",
+						"value" : 9
+					},
+					{
+						"label" : "Typograph",
+						"value" : 10
+					}
+				],
+				"order" : 97,
+				"text" : "Date Font",
+				"type" : "combo",
+				"value" : 2
+			},
+			"DateSeperator" :
+			{
+				"condition" : "ShowClock.value && (ShowMonth.value || ShowDay.value || ShowYear.value)",
+				"options" :
+				[
+					{
+						"label" : "Spaces",
+						"value" : 1
+					},
+					{
+						"label" : ".",
+						"value" : 2
+					},
+					{
+						"label" : "-",
+						"value" : 3
+					},
+					{
+						"label" : "|",
+						"value" : 4
+					},
+					{
+						"label" : "/",
+						"value" : 5
+					},
+					{
+						"label" : "·",
+						"value" : 6
+					}
+				],
+				"order" : 96,
+				"text" : "Date Seperator",
+				"type" : "combo",
+				"value" : 2
+			},
+			"DateShadowColor" :
+			{
+				"condition" : "ShowClock.value && (ShowMonth.value || ShowDay.value || ShowYear.value) && DateShadowSize.value != 0",
+				"order" : 101,
+				"text" : "Date Shadow Color",
+				"type" : "color",
+				"value" : "0.54 0.54 0.54"
+			},
+			"DateShadowSize" :
+			{
+				"condition" : "ShowClock.value && (ShowMonth.value || ShowDay.value || ShowYear.value)",
+				"max" : 2000,
+				"min" : 0,
+				"order" : 100,
+				"text" : "Date Shadow Size",
+				"type" : "slider",
+				"value" : 385
+			},
+			"DateShadowX" :
+			{
+				"condition" : "ShowClock.value && (ShowMonth.value || ShowDay.value || ShowYear.value) && DateShadowSize.value != 0",
+				"max" : 200,
+				"min" : -200,
+				"order" : 102,
+				"text" : "Date Shadow X",
+				"type" : "slider",
+				"value" : 8
+			},
+			"DateShadowY" :
+			{
+				"condition" : "ShowClock.value && (ShowMonth.value || ShowDay.value || ShowYear.value) && DateShadowSize.value != 0",
+				"max" : 200,
+				"min" : -200,
+				"order" : 103,
+				"text" : "Date Shadow Y",
+				"type" : "slider",
+				"value" : 9
+			},
+			"DateSize" :
+			{
+				"condition" : "ShowClock.value && (ShowMonth.value || ShowDay.value || ShowYear.value)",
+				"max" : 2000,
+				"min" : 0,
+				"order" : 98,
+				"text" : "Date Size",
+				"type" : "slider",
+				"value" : 88
+			},
+			"DateX" :
+			{
+				"condition" : "ShowClock.value && (ShowMonth.value || ShowDay.value || ShowYear.value)",
+				"max" : 2000,
+				"min" : -2000,
+				"order" : 104,
+				"text" : "Date X",
+				"type" : "slider",
+				"value" : 724
+			},
+			"DateY" :
+			{
+				"condition" : "ShowClock.value && (ShowMonth.value || ShowDay.value || ShowYear.value)",
+				"max" : 2000,
+				"min" : -2000,
+				"order" : 105,
+				"text" : "Date Y",
+				"type" : "slider",
+				"value" : 699
+			},
+			"Debug" :
+			{
+				"order" : 15,
+				"text" : "Show debug log (used during dev to display data to help build the wallpaper)",
+				"type" : "bool",
+				"value" : false
+			},
+			"FlashEffect" :
+			{
+				"order" : 41,
+				"text" : "Flash",
+				"type" : "bool",
+				"value" : false
+			},
+			"FlashEffectColor" :
+			{
+				"condition" : "FlashEffect.value",
+				"order" : 42,
+				"text" : "Flash Color",
+				"type" : "color",
+				"value" : "0.83 0.99 1"
+			},
+			"FlashTransition" :
+			{
+				"condition" : "FlashEffect.value",
+				"max" : 100,
+				"min" : 0,
+				"order" : 43,
+				"text" : "Flash Transition",
+				"type" : "slider",
+				"value" : 40
+			},
+			"FlashTrigger" :
+			{
+				"condition" : "FlashEffect.value",
+				"max" : 100,
+				"min" : 0,
+				"order" : 44,
+				"text" : "Flash Trigger",
+				"type" : "slider",
+				"value" : 20
+			},
+			"HueEffect" :
+			{
+				"order" : 45,
+				"text" : "Hue",
+				"type" : "bool",
+				"value" : true
+			},
+			"HueOffset" :
+			{
+				"condition" : "HueEffect.value",
+				"max" : 360,
+				"min" : -360,
+				"order" : 47,
+				"text" : "Hue Offset",
+				"type" : "slider",
+				"value" : 0
+			},
+			"HueSensitivity" :
+			{
+				"condition" : "HueEffect.value",
+				"max" : 50,
+				"min" : 1,
+				"order" : 46,
+				"text" : "Hue Sensitivity",
+				"type" : "slider",
+				"value" : 3
+			},
+			"HueTrigger" :
+			{
+				"condition" : "HueEffect.value",
+				"max" : 100,
+				"min" : 0,
+				"order" : 48,
+				"text" : "Hue Trigger",
+				"type" : "slider",
+				"value" : 0
+			},
+			"Idle" :
+			{
+				"max" : 150,
+				"min" : 0,
+				"order" : 11,
+				"text" : "<br>Base Height",
+				"type" : "slider",
+				"value" : 7
+			},
+			"Intensity" :
+			{
+				"max" : 10,
+				"min" : 1,
+				"order" : 10,
+				"text" : "<br>Intensity",
+				"type" : "slider",
+				"value" : 3
+			},
+			"MonthFormat" :
+			{
+				"condition" : "ShowClock.value && ShowMonth.value",
+				"options" :
+				[
+					{
+						"label" : "Full",
+						"value" : 1
+					},
+					{
+						"label" : "Short",
+						"value" : 2
+					},
+					{
+						"label" : "Number",
+						"value" : 3
+					}
+				],
+				"order" : 92,
+				"text" : "Month Format",
+				"type" : "combo",
+				"value" : 3
+			},
+			"MultiColor" :
+			{
+				"condition" : "ColorSw.value",
+				"order" : 24,
+				"text" : "Multicolor",
+				"type" : "bool",
+				"value" : false
+			},
+			"OffsetX" :
+			{
+				"max" : 250,
+				"min" : -250,
+				"order" : 8.5,
+				"text" : "X Offset",
+				"type" : "slider",
+				"value" : 0
+			},
+			"OffsetY" :
+			{
+				"max" : 250,
+				"min" : -250,
+				"order" : 8,
+				"text" : "<br>Y Offset",
+				"type" : "slider",
+				"value" : 100
+			},
+			"ReactEffectsInfo" :
+			{
+				"order" : 36,
+				"text" : "<br><b> - React Effects -</b>"
+			},
+			"ScaleDivider" :
+			{
+				"condition" : "BgScale.value",
+				"max" : 1000,
+				"min" : 1,
+				"order" : 19,
+				"text" : "<br>Scale Divider<br>",
+				"type" : "slider",
+				"value" : 404
+			},
+			"ScaleMin" :
+			{
+				"condition" : "BgScale.value",
+				"max" : 300,
+				"min" : 100,
+				"order" : 21,
+				"text" : "<br>Minimum Scale Factor to Activate<br>",
+				"type" : "slider",
+				"value" : 100
+			},
+			"ScaleSensitivity" :
+			{
+				"condition" : "BgScale.value",
+				"max" : 100,
+				"min" : 0,
+				"order" : 18,
+				"text" : "<br>Scale Sensitivity<br>",
+				"type" : "slider",
+				"value" : 0
+			},
+			"ScaleTransition" :
+			{
+				"condition" : "BgScale.value",
+				"max" : 100,
+				"min" : 0,
+				"order" : 20,
+				"text" : "<br>Scale Transition<br>",
+				"type" : "slider",
+				"value" : 20
+			},
+			"ShowAMPM" :
+			{
+				"condition" : "ShowClock.value && TimeFormat.value == 1  && (ShowHours.value || ShowMinutes.value || ShowSeconds.value)",
+				"order" : 79,
+				"text" : "Show AM/PM",
+				"type" : "bool",
+				"value" : true
+			},
+			"ShowClock" :
+			{
+				"order" : 60,
+				"text" : "Show Clock",
+				"type" : "bool",
+				"value" : true
+			},
+			"ShowDay" :
+			{
+				"condition" : "ShowClock.value",
+				"order" : 93,
+				"text" : "Day",
+				"type" : "bool",
+				"value" : true
+			},
+			"ShowHours" :
+			{
+				"condition" : "ShowClock.value",
+				"order" : 76,
+				"text" : "Hours",
+				"type" : "bool",
+				"value" : true
+			},
+			"ShowMinutes" :
+			{
+				"condition" : "ShowClock.value",
+				"order" : 77,
+				"text" : "Minutes",
+				"type" : "bool",
+				"value" : true
+			},
+			"ShowMonth" :
+			{
+				"condition" : "ShowClock.value",
+				"order" : 91,
+				"text" : "Month",
+				"type" : "bool",
+				"value" : true
+			},
+			"ShowSeconds" :
+			{
+				"condition" : "ShowClock.value",
+				"order" : 78,
+				"text" : "Seconds",
+				"type" : "bool",
+				"value" : true
+			},
+			"ShowWeekday" :
+			{
+				"condition" : "ShowClock.value",
+				"order" : 65,
+				"text" : "Weekday",
+				"type" : "bool",
+				"value" : true
+			},
+			"ShowYear" :
+			{
+				"condition" : "ShowClock.value",
+				"order" : 94,
+				"text" : "Year",
+				"type" : "bool",
+				"value" : true
+			},
+			"Spacing" :
+			{
+				"max" : 100,
+				"min" : 1,
+				"order" : 13,
+				"text" : "<br>Bar Spacing",
+				"type" : "slider",
+				"value" : 1
+			},
+			"SpectrumBlurColor" :
+			{
+				"order" : 6,
+				"text" : "<br>Spectrum Blur Color",
+				"type" : "color",
+				"value" : "1 1 1"
+			},
+			"SpectrumBlurSize" :
+			{
+				"condition" : "!BlurReact.value",
+				"max" : 100,
+				"min" : 0,
+				"order" : 7,
+				"text" : "<br>Spectrum Blur Size",
+				"type" : "slider",
+				"value" : 1
+			},
+			"SpectrumColor" :
+			{
+				"order" : 5,
+				"text" : "<br>Spectrum Color",
+				"type" : "color",
+				"value" : "0 0.65 1"
+			},
+			"SpectrumOpacity" :
+			{
+				"max" : 100,
+				"min" : 0,
+				"order" : 52,
+				"text" : "Opacity (Not React)",
+				"type" : "slider",
+				"value" : 100
+			},
+			"SpectrumOptionsInfo" :
+			{
+				"order" : 4,
+				"text" : "<br><br> <b>- Spectrum Options -</b>"
+			},
+			"SpectrumRotation" :
+			{
+				"max" : 360,
+				"min" : 0,
+				"order" : 50,
+				"text" : "Rotation (Not React)",
+				"type" : "slider",
+				"value" : 180
+			},
+			"SpectrumScale" :
+			{
+				"max" : 200,
+				"min" : 0,
+				"order" : 51,
+				"text" : "Scale (Not React)",
+				"type" : "slider",
+				"value" : 100
+			},
+			"SpectrumScaleAnchor" :
+			{
+				"condition" : "SpectrumScaleReact.value",
+				"options" :
+				[
+					{
+						"label" : "Top",
+						"value" : 1
+					},
+					{
+						"label" : "Top Right",
+						"value" : 2
+					},
+					{
+						"label" : "Right",
+						"value" : 3
+					},
+					{
+						"label" : "Bottom Right",
+						"value" : 4
+					},
+					{
+						"label" : "Bottom",
+						"value" : 5
+					},
+					{
+						"label" : "Bottom Left",
+						"value" : 6
+					},
+					{
+						"label" : "Left",
+						"value" : 7
+					},
+					{
+						"label" : "Top Left",
+						"value" : 8
+					},
+					{
+						"label" : "Center",
+						"value" : 9
+					}
+				],
+				"order" : 58,
+				"text" : "Anchor",
+				"type" : "combo",
+				"value" : 1
+			},
+			"SpectrumScaleDivider" :
+			{
+				"condition" : "SpectrumScaleReact.value",
+				"max" : 1000,
+				"min" : 1,
+				"order" : 55,
+				"text" : "Scale Divider",
+				"type" : "slider",
+				"value" : 120
+			},
+			"SpectrumScaleReact" :
+			{
+				"order" : 53,
+				"text" : "Scale React",
+				"type" : "bool",
+				"value" : false
+			},
+			"SpectrumScaleSensitivity" :
+			{
+				"condition" : "SpectrumScaleReact.value",
+				"max" : 100,
+				"min" : 1,
+				"order" : 54,
+				"text" : "Scale Sensitivity",
+				"type" : "slider",
+				"value" : 1
+			},
+			"SpectrumScaleTransition" :
+			{
+				"condition" : "SpectrumScaleReact.value",
+				"max" : 100,
+				"min" : 0,
+				"order" : 57,
+				"text" : "Scale Transition",
+				"type" : "slider",
+				"value" : 25
+			},
+			"SpectrumScaleTrigger" :
+			{
+				"condition" : "SpectrumScaleReact.value",
+				"max" : 100,
+				"min" : 0,
+				"order" : 56,
+				"text" : "Scale Trigger",
+				"type" : "slider",
+				"value" : 0
+			},
+			"TimeColor" :
+			{
+				"condition" : "ShowClock.value  && (ShowHours.value || ShowMinutes.value || ShowSeconds.value)",
+				"order" : 84,
+				"text" : "Time Color",
+				"type" : "color",
+				"value" : "0 0 0"
+			},
+			"TimeFont" :
+			{
+				"condition" : "ShowClock.value  && (ShowHours.value || ShowMinutes.value || ShowSeconds.value)",
+				"options" :
+				[
+					{
+						"label" : "Impact",
+						"value" : 1
+					},
+					{
+						"label" : "Intro",
+						"value" : 2
+					},
+					{
+						"label" : "Jackport",
+						"value" : 3
+					},
+					{
+						"label" : "LCD",
+						"value" : 4
+					},
+					{
+						"label" : "Milkshake",
+						"value" : 5
+					},
+					{
+						"label" : "NexaBold",
+						"value" : 6
+					},
+					{
+						"label" : "NexaLight",
+						"value" : 7
+					},
+					{
+						"label" : "Overseer",
+						"value" : 8
+					},
+					{
+						"label" : "Pricedown",
+						"value" : 9
+					},
+					{
+						"label" : "Typograph",
+						"value" : 10
+					}
+				],
+				"order" : 82,
+				"text" : "Time Font",
+				"type" : "combo",
+				"value" : 7
+			},
+			"TimeFormat" :
+			{
+				"condition" : "ShowClock.value  && (ShowHours.value || ShowMinutes.value || ShowSeconds.value)",
+				"options" :
+				[
+					{
+						"label" : "12H",
+						"value" : 1
+					},
+					{
+						"label" : "24H",
+						"value" : 2
+					}
+				],
+				"order" : 80,
+				"text" : "Time Format",
+				"type" : "combo",
+				"value" : 1
+			},
+			"TimeSeperator" :
+			{
+				"condition" : "ShowClock.value  && (ShowHours.value || ShowMinutes.value || ShowSeconds.value)",
+				"options" :
+				[
+					{
+						"label" : "Spaces",
+						"value" : 1
+					},
+					{
+						"label" : ".",
+						"value" : 2
+					},
+					{
+						"label" : "-",
+						"value" : 3
+					},
+					{
+						"label" : "|",
+						"value" : 4
+					},
+					{
+						"label" : "/",
+						"value" : 5
+					},
+					{
+						"label" : "·",
+						"value" : 6
+					},
+					{
+						"label" : ":",
+						"value" : 7
+					}
+				],
+				"order" : 81,
+				"text" : "Time Seperator",
+				"type" : "combo",
+				"value" : 7
+			},
+			"TimeShadowColor" :
+			{
+				"condition" : "ShowClock.value  && (ShowHours.value || ShowMinutes.value || ShowSeconds.value) && TimeShadowSize.value != 0",
+				"order" : 86,
+				"text" : "Time Shadow Color",
+				"type" : "color",
+				"value" : "0.21 0.21 0.21"
+			},
+			"TimeShadowSize" :
+			{
+				"condition" : "ShowClock.value  && (ShowHours.value || ShowMinutes.value || ShowSeconds.value)",
+				"max" : 2000,
+				"min" : 0,
+				"order" : 85,
+				"text" : "Time Shadow Size",
+				"type" : "slider",
+				"value" : 115
+			},
+			"TimeShadowX" :
+			{
+				"condition" : "ShowClock.value  && (ShowHours.value || ShowMinutes.value || ShowSeconds.value) && TimeShadowSize.value != 0",
+				"max" : 200,
+				"min" : -200,
+				"order" : 87,
+				"text" : "Time Shadow X",
+				"type" : "slider",
+				"value" : 10
+			},
+			"TimeShadowY" :
+			{
+				"condition" : "ShowClock.value  && (ShowHours.value || ShowMinutes.value || ShowSeconds.value) && TimeShadowSize.value != 0",
+				"max" : 200,
+				"min" : -200,
+				"order" : 88,
+				"text" : "Time Shadow Y",
+				"type" : "slider",
+				"value" : 10
+			},
+			"TimeSize" :
+			{
+				"condition" : "ShowClock.value  && (ShowHours.value || ShowMinutes.value || ShowSeconds.value)",
+				"max" : 2000,
+				"min" : 0,
+				"order" : 83,
+				"text" : "Time Size",
+				"type" : "slider",
+				"value" : 348
+			},
+			"TimeX" :
+			{
+				"condition" : "ShowClock.value  && (ShowHours.value || ShowMinutes.value || ShowSeconds.value)",
+				"max" : 2000,
+				"min" : -2000,
+				"order" : 89,
+				"text" : "Time X",
+				"type" : "slider",
+				"value" : 783
+			},
+			"TimeY" :
+			{
+				"condition" : "ShowClock.value  && (ShowHours.value || ShowMinutes.value || ShowSeconds.value)",
+				"max" : 2000,
+				"min" : -2000,
+				"order" : 90,
+				"text" : "Time Y",
+				"type" : "slider",
+				"value" : 522
+			},
+			"V1" :
+			{
+				"order" : 0,
+				"text" : "<b><i><u>V1 Options. Many may be unresponsive if some V2 options triggered."
+			},
+			"V2" :
+			{
+				"order" : 14,
+				"text" : "<br><br><i><u><b>Everything under this is part of V2(React)!</b></u></i><br>"
+			},
+			"WeekdayColor" :
+			{
+				"condition" : "ShowClock.value && ShowWeekday.value",
+				"order" : 69,
+				"text" : "Weekday Color",
+				"type" : "color",
+				"value" : "0 0 0"
+			},
+			"WeekdayFont" :
+			{
+				"condition" : "ShowClock.value && ShowWeekday.value",
+				"options" :
+				[
+					{
+						"label" : "Impact",
+						"value" : 1
+					},
+					{
+						"label" : "Intro",
+						"value" : 2
+					},
+					{
+						"label" : "Jackport",
+						"value" : 3
+					},
+					{
+						"label" : "LCD",
+						"value" : 4
+					},
+					{
+						"label" : "Milkshake",
+						"value" : 5
+					},
+					{
+						"label" : "NexaBold",
+						"value" : 6
+					},
+					{
+						"label" : "NexaLight",
+						"value" : 7
+					},
+					{
+						"label" : "Overseer",
+						"value" : 8
+					},
+					{
+						"label" : "Pricedown",
+						"value" : 9
+					},
+					{
+						"label" : "Typograph",
+						"value" : 10
+					}
+				],
+				"order" : 67,
+				"text" : "Weekday Font",
+				"type" : "combo",
+				"value" : 5
+			},
+			"WeekdayFormat" :
+			{
+				"condition" : "ShowClock.value && ShowWeekday.value",
+				"options" :
+				[
+					{
+						"label" : "Full",
+						"value" : 1
+					},
+					{
+						"label" : "Short",
+						"value" : 2
+					},
+					{
+						"label" : "Number",
+						"value" : 3
+					}
+				],
+				"order" : 66,
+				"text" : "Weekday Format",
+				"type" : "combo",
+				"value" : 1
+			},
+			"WeekdayShadowColor" :
+			{
+				"condition" : "ShowClock.value && ShowWeekday.value && WeekdayShadowSize.value != 0",
+				"order" : 71,
+				"text" : "Weekday Shadow Color",
+				"type" : "color",
+				"value" : "0.49 0.49 0.49"
+			},
+			"WeekdayShadowSize" :
+			{
+				"condition" : "ShowClock.value && ShowWeekday.value",
+				"max" : 2000,
+				"min" : 0,
+				"order" : 70,
+				"text" : "Weekday Shadow Size",
+				"type" : "slider",
+				"value" : 125
+			},
+			"WeekdayShadowX" :
+			{
+				"condition" : "ShowClock.value && ShowWeekday.value && WeekdayShadowSize.value != 0",
+				"max" : 200,
+				"min" : -200,
+				"order" : 72,
+				"text" : "Weekday Shadow X",
+				"type" : "slider",
+				"value" : 8
+			},
+			"WeekdayShadowY" :
+			{
+				"condition" : "ShowClock.value && ShowWeekday.value && WeekdayShadowSize.value != 0",
+				"max" : 200,
+				"min" : -200,
+				"order" : 73,
+				"text" : "Weekday Shadow Y",
+				"type" : "slider",
+				"value" : 5
+			},
+			"WeekdaySize" :
+			{
+				"condition" : "ShowClock.value && ShowWeekday.value",
+				"max" : 2000,
+				"min" : 0,
+				"order" : 68,
+				"text" : "Weekday Size",
+				"type" : "slider",
+				"value" : 135
+			},
+			"WeekdayX" :
+			{
+				"condition" : "ShowClock.value && ShowWeekday.value",
+				"max" : 2000,
+				"min" : -2000,
+				"order" : 74,
+				"text" : "Weekday X",
+				"type" : "slider",
+				"value" : 272
+			},
+			"WeekdayY" :
+			{
+				"condition" : "ShowClock.value && ShowWeekday.value",
+				"max" : 2000,
+				"min" : -2000,
+				"order" : 75,
+				"text" : "Weekday Y",
+				"type" : "slider",
+				"value" : 284
+			},
+			"YearFormat" :
+			{
+				"condition" : "ShowClock.value && ShowYear.value",
+				"options" :
+				[
+					{
+						"label" : "Full",
+						"value" : 1
+					},
+					{
+						"label" : "Short",
+						"value" : 2
+					}
+				],
+				"order" : 95,
+				"text" : "Year Format",
+				"type" : "combo",
+				"value" : 2
+			},
+			"bg" :
+			{
+				"order" : 2,
+				"text" : "<br>Background",
+				"type" : "file"
+			},
+			"schemecolor" :
+			{
+				"order" : 0,
+				"text" : "ui_browse_properties_scheme_color",
+				"type" : "color",
+				"value" : "0 0 0"
+			},
+			"switchDayMonth":
+			{
+				"condition": "ShowMonth.value && ShowDay.value",
+				"order": 93.1,
+				"text": "Interchange Day Month",
+				"type": "bool",
+				"value": false
+			}
+		},
+		"supportsaudioprocessing" : true
+	},
+	"preview" : "preview.gif",
+	"tags" : [ "Music" ],
+	"title" : "React - 100+ Options, Customizable Audio Responsive Wallpaper",
+	"type" : "web",
+	"visibility" : "public",
+	"workshopid" : 1108769435
+}
